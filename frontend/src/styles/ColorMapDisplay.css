@@ -1,0 +1,11 @@
+.ColorMapDisplayDiv {
+    border-radius: 15px;
+    height: 80px;
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    box-shadow:  8px 8px 16px #cccccc, 
+    -8px -8px 16px #ffffff;
+    cursor: copy;
+}

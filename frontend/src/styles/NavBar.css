@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
+
+.NavBarDiv{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 50px 0px 30px 0px;
+}
+
+.NavBarTitleDiv {
+    width: auto;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 3rem;
+    color: #292929;
+}

@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+
+.ColorMapAnchorListDiv {
+    flex-grow: 2;
+    min-width: 300px;
+    max-width: 500px;
+    height: 385px;
+    overflow-y: auto;
+}
+
+.ColorMapAnchorListItem {
+    display: flex;
+    flex-direction: row;
+    padding: 7px;
+}
+
+.ColorMapAnchorListName {
+    flex-grow: 2;
+    color: #292929;
+    cursor: pointer;
+    text-align: left;
+    padding-left: 10px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    font-family: 'Lato', sans-serif;
+}
+
+.ColorMapAnchorListRemoveButtonDiv {
+    width: 50px;
+    color: #292929;
+    cursor: pointer;
+}
+
+.ColorMapAnchorListColor {
+    border-radius: 8px;
+    height: 30px;
+    width: 30px;
+    margin-right: 10px;
+}

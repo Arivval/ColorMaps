@@ -15,12 +15,23 @@ class ColorMapEditor extends Component {
             anchorColors: [INIT_COLOR_1, INIT_COLOR_2],
             recentUpdateTime: Date.now(),
             currentFocusedPoint: 0,
+            viewMode: false
         }
         this.addAnchorPoint = this.addAnchorPoint.bind(this);
         this.onSliderChange = this.onSliderChange.bind(this);
         this.onFocusedPointChange = this.onFocusedPointChange.bind(this);
         this.onColorChange = this.onColorChange.bind(this);
         this.onRemoveAnchorPoint = this.onRemoveAnchorPoint.bind(this);
+    }
+
+    componentDidMount() {
+        if ("anchorPoints" in this.props) {
+            this.setState({
+                anchorColors: this.props.anchorColors,
+                anchorPoints: this.props.anchorPoints,
+                viewMode: true
+            })
+        }
     }
 
     addAnchorPoint(location) {
@@ -33,9 +44,9 @@ class ColorMapEditor extends Component {
             insertIdx = i;
             if (location >= currentAnchorPoints[i] && location <= currentAnchorPoints[i + 1]) {
                 insertColor = [
-                    (currentAnchorColors[i][0] + currentAnchorColors[i+1][0]) / 2,
-                    (currentAnchorColors[i][1] + currentAnchorColors[i+1][1]) / 2,
-                    (currentAnchorColors[i][2] + currentAnchorColors[i+1][2]) / 2,
+                    Math.round((currentAnchorColors[i][0] + currentAnchorColors[i+1][0]) / 2),
+                    Math.round((currentAnchorColors[i][1] + currentAnchorColors[i+1][1]) / 2),
+                    Math.round((currentAnchorColors[i][2] + currentAnchorColors[i+1][2]) / 2),
                 ];
                 break;
             }
@@ -45,15 +56,20 @@ class ColorMapEditor extends Component {
         const insertedColors = [...this.state.anchorColors];
         insertedColors.splice(insertIdx, 0, insertColor);
         this.setState({anchorPoints: insertedAnchorPoints, anchorColors: insertedColors, currentFocusedPoint: insertIdx});
+        if (this.state.viewMode) {
+            this.props.onAnchorPointDidChange(insertedAnchorPoints, insertedColors);
+        }
     }
 
     onSliderChange(values) {
-        this.setState({anchorPoints: values})
+        this.setState({anchorPoints: values});
+        if (this.state.viewMode) {
+            this.props.onAnchorPointDidChange(values, this.state.anchorColors);
+        }
     }
 
     onFocusedPointChange(newFocusIndex) {
         this.setState({currentFocusedPoint: newFocusIndex});
-
     }
 
     onRemoveAnchorPoint(removeIndex) {
@@ -61,7 +77,7 @@ class ColorMapEditor extends Component {
             return;
         }
         let nextFocusedPoint = this.state.currentFocusedPoint;
-        if (removeIndex <= this.state.currentFocusedPoint) {
+        if (removeIndex <= this.state.currentFocusedPoint && this.state.currentFocusedPoint !== 0) {
             nextFocusedPoint -= 1;
         }
         let nextAnchorPoints = [...this.state.anchorPoints];
@@ -73,6 +89,9 @@ class ColorMapEditor extends Component {
             anchorColors: nextAnchorColors,
             currentFocusedPoint: nextFocusedPoint
         });
+        if (this.state.viewMode) {
+            this.props.onAnchorPointDidChange(nextAnchorPoints, nextAnchorColors);
+        }
     }
 
     onColorChange(newColor) {
@@ -82,6 +101,9 @@ class ColorMapEditor extends Component {
         newAnchorColors[this.state.currentFocusedPoint][1] = newColorRGB.g;
         newAnchorColors[this.state.currentFocusedPoint][2] = newColorRGB.b;
         this.setState({anchorColors: newAnchorColors});
+        if (this.state.viewMode) {
+            this.props.onAnchorPointDidChange(this.state.anchorPoints, newAnchorColors);
+        }
     }
 
     render() {

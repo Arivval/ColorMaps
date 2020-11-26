@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 import '../styles/ColorMapDisplay.css';
 
@@ -26,17 +26,16 @@ class ColorMapDisplay extends Component {
     }
 
     render() {
-        //     background: linear-gradient(90deg, #d53369 0%, #daae51 100%);
         let gradientCSS = "linear-gradient(90deg," + this.props.anchorColors.map((color, idx) => {
             const hexColor = rgbHex(...color);
             return ' #' + hexColor + ' ' + this.props.anchorPoints[idx] + '%';
         }).join(',') + ')';
         return (
-            <div 
-                className="ColorMapDisplayDiv" 
-                style={{background: gradientCSS}}
+            <div
+                className="ColorMapDisplayDiv"
+                style={{ background: gradientCSS }}
                 onClick={this.addAnchorPoint}
-                />
+            />
         );
     }
 

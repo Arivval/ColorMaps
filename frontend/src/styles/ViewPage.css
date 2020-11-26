@@ -1,0 +1,24 @@
+.ViewPageDiv {
+
+}
+
+.ViewPageToolBarDiv {
+    display: flex;
+    flex-direction: row;
+}
+
+.ViewPageToolBarNameDiv {
+    flex-grow: 2;
+    text-align: left;
+    padding-left: 30px;
+    color: #292929;
+    font-family: 'Lato', sans-serif; 
+}
+
+.ViewPageToolBarForkButtonDiv {
+    margin-right: 20px;
+}
+
+.ViewPageToolBarSpinnerDiv {
+    padding-right: 20px;
+}

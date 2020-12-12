@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import {HashRouter as Router, Route, Switch} from 'react-router-dom';
 import HomePage from './components/HomePage';
 import ViewPage from './components/ViewPage';
 import NavBar from './components/NavBar';
@@ -13,7 +13,7 @@ function App() {
       <header className="App-header">
         <div className="App-header-inner">
           <NavBar/>
-          <Router>
+          <Router basename={"/"}>
             <Switch>
               <Route path="/view" component={ViewPage}/>
               <Route path="/" component={HomePage}/>
